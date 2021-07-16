@@ -51,7 +51,9 @@ class Database {
         return _.get(modelsMapper, modelKey);
     }
 
-
+    get objectId() {
+        return mongoose.Types.ObjectId;
+    }
 
 
     _capitalizeModelName(string) {
