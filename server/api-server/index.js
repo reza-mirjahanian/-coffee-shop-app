@@ -2,6 +2,7 @@
 const express = require('express'),
     constants = require('../constants'),
     productRepo = require('../repository/products'),
+    orderRepo = require('../repository/orders'),
     cors = require('cors'),
     logger = require('../utils/logger');
 
@@ -19,6 +20,18 @@ app.get('/menu', async (req, res) => {
 
     } catch (err) {
         logger.error('/menu', {
+            err
+        });
+        res.status(500).send("Error");
+    }
+});
+
+app.post('/order', async (req,res)=>{
+    try {
+
+
+    } catch (err) {
+        logger.error('/order', {
             err
         });
         res.status(500).send("Error");

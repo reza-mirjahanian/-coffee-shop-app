@@ -7,6 +7,7 @@ const
 
 const constants = {
     EXPRESS_PORT: Number(process.env.PORT) || 3100,
+    PREPARE_ORDERS_TAKE_TIME_MIN: Number(process.env.PREPARE_ORDERS_TAKE_TIME_MIN) || 10,
     MONGODB: {
         connections: {
             default: {
