@@ -12,7 +12,7 @@ class Products {
             logger.log("All products is cleaned at: " + new Date());
             return true;
         } catch (e) {
-            logger.error("Products:insert()", e);
+            logger.error("Products:removeAll()", e);
             return false;
         }
     }
