@@ -1,3 +1,6 @@
-# A day at a coffee shop!
+## A day at a coffee shop!
 By Reza Mirjahanian
 
+Tips:
+###### Schema.Types.Decimal128 is better than Number for money.
+###### Install cross-env package for running tests
