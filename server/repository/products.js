@@ -1,8 +1,6 @@
 'use strict';
 
-const _ = require('lodash'),
-    logger = require('../utils/logger'),
-    moment = require('moment'),
+const logger = require('../utils/logger'),
     Model = require('../utils/mongoDB').getModel('Product');
 
 
@@ -21,7 +19,7 @@ class Products {
 
     /**
      *
-     * @param {}
+     * @param  {Object}
      * @return {Promise<Boolean>}
      */
     static async insert({name, active = true, price, taxRate}) {
@@ -43,8 +41,7 @@ class Products {
 
     /**
      *
-     * @param {Date} at Date
-     * @return {Promise<{}|null>}
+     * @return {Promise< {Object[]}|null>}
      */
     static async getAvailableProducts() {
         try {
