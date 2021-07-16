@@ -1,6 +1,6 @@
 'use strict';
 const logger = require('./utils/logger');
-require('./express');
+require('./api-server');
 
 console.log('Server Is Running!')
 

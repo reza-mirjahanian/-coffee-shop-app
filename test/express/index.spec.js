@@ -1,6 +1,6 @@
 'use strict';
 const expect = require('chai').expect;
-require('../../server/express'); //@todo maybe cleanup
+require('../../server/api-server'); //@todo maybe cleanup
 
 const constants = require('../../server/constants');
 const productRepo = require('../../server/repository/products');
