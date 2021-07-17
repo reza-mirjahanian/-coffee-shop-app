@@ -25,8 +25,7 @@ class Order extends Models {
                 required: true
             },
             readyAt: {
-                type: Date,
-                required: true
+                type: Date
             }
         });
     }

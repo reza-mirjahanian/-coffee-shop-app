@@ -25,21 +25,21 @@ class Order {
      * @param {}
      * @return {Promise<Boolean>}
      */
-    static async insert({products = []}) {
+    static async insertPreOrder({products = [], finalPay = -1}) {
         try {
             const createdAt = moment.utc();
-            const readyAt = createdAt.clone().add(constants.PREPARE_ORDERS_TAKE_TIME_MIN, 'minute');
+            // const readyAt = createdAt.clone().add(constants.PREPARE_ORDERS_TAKE_TIME_MIN, 'minute');
             const order = await Model.create({
                 products,
-                createdAt,
-                readyAt
+                finalPay,
+                createdAt
             });
 
-            logger.log("New Order is inserted at: " + new Date());
+            logger.log("New PreOrder is inserted at: " + new Date());
             return order;
 
         } catch (e) {
-            logger.error("Orders:insert()", e);
+            logger.error("PreOrders:insert()", e);
             return null;
         }
     }

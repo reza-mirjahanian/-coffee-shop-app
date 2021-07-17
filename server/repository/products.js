@@ -53,6 +53,16 @@ class Products {
         }
     }
 
+    static async findProducts({pIds}) {
+        try {
+            return await Model.find({_id: {$in:pIds}}).select('_id active name price taxRate').lean();
+
+        } catch (e) {
+            logger.error("Products:findProducts()", e);
+            return null;
+        }
+    }
+
 
 }
 
