@@ -24,6 +24,7 @@ suite('Testing Express API routes', () => {
     });
   });
 
+
   suite('GET /menu', () => {
     test('should respond [] when we have no data', async () => {
       const {
@@ -31,23 +32,32 @@ suite('Testing Express API routes', () => {
       } = await axios.get(SERVER_URL + 'menu');
       expect(response).to.be.an('array').that.is.empty;
     });
+
     test('should respond with the list of available items', async () => {
-      await productRepo.insert({
-        name: 'tea',
-        price: 2,
-        taxRate: 0.1
+      await axios.post(SERVER_URL + 'insert-product', {
+        product: {
+          name: 'tea',
+          price: 2,
+          taxRate: 0.1
+        }
       });
-      await productRepo.insert({
-        name: 'cake',
-        price: 3,
-        taxRate: 0.2
+      await axios.post(SERVER_URL + 'insert-product', {
+        product: {
+          name: 'cake',
+          price: 3,
+          taxRate: 0.2
+        }
       });
-      await productRepo.insert({
-        name: 'coffee',
-        price: 2.5,
-        taxRate: 0.3,
-        active: false
+      await axios.post(SERVER_URL + 'insert-product', {
+        product: {
+          name: 'coffee',
+          price: 2.5,
+          taxRate: 0.3,
+          active: false
+        }
       });
+
+
       const {
         data: response
       } = await axios.get(SERVER_URL + 'menu');

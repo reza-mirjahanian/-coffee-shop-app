@@ -11,7 +11,24 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
+// main page :)
 app.get('/', (req, res) => res.send('Server is running'));
+
+// [Admin Route] admin could insert products
+app.post('/insert-product', async (req, res) => {
+  try {
+    const {product} = req.body;
+    await productRepo.insert(product);
+    return res.status(200).send('OK');
+
+  } catch (err) {
+    logger.error('/insert-product', {
+      err
+    });
+    res.status(500).send("Error");
+  }
+});
+
 
 // see the list of available items
 app.get('/menu', async (req, res) => {
@@ -27,6 +44,7 @@ app.get('/menu', async (req, res) => {
   }
 });
 
+//user should be able to order them
 app.post('/preorder', async (req, res) => {
   try {
     const {
@@ -46,6 +64,7 @@ app.post('/preorder', async (req, res) => {
   }
 });
 
+// user should be able to pay the order
 app.post('/pay', async (req, res) => {
   try {
     const {
