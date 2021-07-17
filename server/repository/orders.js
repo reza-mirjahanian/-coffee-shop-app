@@ -31,7 +31,6 @@ class Order {
   }) {
     try {
       const createdAt = moment.utc();
-      // const readyAt = createdAt.clone().add(constants.PREPARE_ORDERS_TAKE_TIME_MIN, 'minute');
       const order = await Model.create({
         products,
         finalPay,
@@ -51,19 +50,27 @@ class Order {
     orderId
   }) {
     try {
+      const paidOrder = await Model.findOne({
+        _id: orderId
+      }).lean();
+      if(!paidOrder){
+        throw Error("Order not found!");
+      }
+      const readyAt = moment(paidOrder.createdAt).add(constants.PREPARE_ORDERS_TAKE_TIME_MIN, 'minute');
       await Model.updateOne({
         _id: orderId
       }, {
         $set: {
-          status: 'paid'
+          status: 'paid',
+          readyAt
         }
 
       });
-      const paidOrder = await Model.findOne({
+
+      logger.log(orderId + "is paid at: " + new Date());
+      return  Model.findOne({
         _id: orderId
       }).lean();
-      logger.log(orderId + "is paid at: " + new Date());
-      return paidOrder;
 
     } catch (e) {
       logger.error("Order:paidOrder()", e);

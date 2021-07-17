@@ -7,6 +7,7 @@ const productRepo = require('../../server/repository/products');
 const orderRepo = require('../../server/repository/orders');
 const axios = require('axios');
 const _ = require('lodash');
+const moment = require('moment');
 const SERVER_URL = `http://localhost:${constants.EXPRESS_PORT}/`;
 
 suite('Testing Express API routes', () => {
@@ -109,11 +110,12 @@ suite('Testing Express API routes', () => {
       } = await axios.post(SERVER_URL + 'pay', {
         orderId: preOrder._id
       })
+
       expect(response.products).to.be.an('array').have.lengthOf(2);
       expect(response.status).to.be.equal('paid');
       expect(response.finalPay).to.be.equal(5.8);
-      expect(response).to.have.all.keys('createdAt', 'finalPay', 'products', 'status', '_id', '__v');
-
+      expect(response).to.have.all.keys('createdAt', 'readyAt', 'finalPay', 'products', 'status', '_id', '__v');
+      expect(moment(response.readyAt) - moment(response.createdAt)).to.be.equal(constants.PREPARE_ORDERS_TAKE_TIME_MIN * 60 * 1000);
     });
   });
 
