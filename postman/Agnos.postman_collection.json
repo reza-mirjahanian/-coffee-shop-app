@@ -1,0 +1,112 @@
+{
+	"info": {
+		"_postman_id": "b53aeef0-9eb7-4fb7-8135-55f62f44c7e7",
+		"name": "Agnos",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://localhost:3100/insert-product",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n   \"product\":{\r\n      \"name\":\"coffee\",\r\n      \"price\":2.5,\r\n      \"taxRate\":0.3,\r\n      \"active\":true\r\n   }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3100/insert-product",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3100",
+					"path": [
+						"insert-product"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3100/menu",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3100/menu",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3100",
+					"path": [
+						"menu"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3100/preorder",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n   \"pIds\":[\"60f2f382f29b9e4a80240781\"]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3100/preorder",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3100",
+					"path": [
+						"preorder"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3100/pay",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n   \"orderId\":[\"60f2f5dbf29b9e4a80240785\"]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3100/pay",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3100",
+					"path": [
+						"pay"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
