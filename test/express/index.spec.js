@@ -78,7 +78,7 @@ suite('Testing Express API routes', () => {
       expect(response.products).to.be.an('array').have.lengthOf(2);
       expect(response.status).to.be.equal('waiting');
       expect(response.finalPay).to.be.equal(5.8);
-      expect(response).to.have.all.keys('createdAt', 'finalPay','products','status' , '_id', '__v');
+      expect(response).to.have.all.keys('createdAt', 'finalPay', 'products', 'status', '_id', '__v');
     });
 
   });
