@@ -24,7 +24,6 @@ suite('Testing Express API routes', () => {
   });
 
   suite('GET /menu', () => {
-
     test('should respond [] when we have no data', async () => {
       const {
         data: response
@@ -33,17 +32,17 @@ suite('Testing Express API routes', () => {
     });
     test('should respond with the list of available items', async () => {
       await productRepo.insert({
-        name: "tea",
+        name: 'tea',
         price: 2,
         taxRate: 0.1
       });
       await productRepo.insert({
-        name: "cake",
+        name: 'cake',
         price: 3,
         taxRate: 0.2
       });
       await productRepo.insert({
-        name: "coffee",
+        name: 'coffee',
         price: 2.5,
         taxRate: 0.3,
         active: false
@@ -60,12 +59,12 @@ suite('Testing Express API routes', () => {
   suite('POST /preorder', () => {
     test('should order insert correctly', async () => {
       await productRepo.insert({
-        name: "tea",
+        name: 'tea',
         price: 2,
         taxRate: 0.1
       });
       await productRepo.insert({
-        name: "cake",
+        name: 'cake',
         price: 3,
         taxRate: 0.2
       });
@@ -80,7 +79,42 @@ suite('Testing Express API routes', () => {
       expect(response.finalPay).to.be.equal(5.8);
       expect(response).to.have.all.keys('createdAt', 'finalPay', 'products', 'status', '_id', '__v');
     });
+  });
 
+  suite('POST /pay', () => {
+    test('should paying an order change its status', async () => {
+      const products = [{
+          _id: '60f2831594ddcf2d90f243a1',
+          active: true,
+          name: 'tea',
+          price: 2,
+          taxRate: 0.1
+        },
+        {
+          _id: '60f2831594ddcf2d90f243a3',
+          active: true,
+          name: 'cake',
+          price: 3,
+          taxRate: 0.2
+        }
+      ];
+      const finalPay = 5.8;
+      const preOrder = await orderRepo.insertPreOrder({
+        products,
+        finalPay
+      });
+
+      const {
+        data: response
+      } = await axios.post(SERVER_URL + 'pay', {
+        orderId: preOrder._id
+      })
+      expect(response.products).to.be.an('array').have.lengthOf(2);
+      expect(response.status).to.be.equal('paid');
+      expect(response.finalPay).to.be.equal(5.8);
+      expect(response).to.have.all.keys('createdAt', 'finalPay', 'products', 'status', '_id', '__v');
+
+    });
   });
 
 });

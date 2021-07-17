@@ -29,8 +29,12 @@ app.get('/menu', async (req, res) => {
 
 app.post('/preorder', async (req, res) => {
   try {
-    const pIds = req.body;
-    const products = await productRepo.findProducts(pIds);
+    const {
+      pIds
+    } = req.body;
+    const products = await productRepo.findProducts({
+      pIds
+    });
     const invoice = priceCalcService.calcProductsCost(products); //@todo calc discount
     const preOrder = await orderRepo.insertPreOrder(invoice);
     return res.status(200).send(preOrder);
@@ -39,6 +43,25 @@ app.post('/preorder', async (req, res) => {
       err
     });
     res.status(500).send("Error");
+  }
+});
+
+app.post('/pay', async (req, res) => {
+  try {
+    const {
+        orderId
+    } = req.body;
+    //@todo billing process ...!
+    const paidOrder = await orderRepo.paidOrder({
+        orderId
+    });
+    return res.status(200).send(paidOrder);
+
+  } catch (err) {
+    res.status(500).send('Error');
+    logger.error('/preorder', {
+      err
+    });
   }
 });
 

@@ -42,8 +42,32 @@ class Order {
       return order;
 
     } catch (e) {
-      logger.error("PreOrders:insert()", e);
-      return null;
+      logger.error("Order:insertPreOrder()", e);
+      return false;
+    }
+  }
+
+  static async paidOrder({
+    orderId
+  }) {
+    try {
+      await Model.updateOne({
+        _id: orderId
+      }, {
+        $set: {
+          status: 'paid'
+        }
+
+      });
+      const paidOrder = await Model.findOne({
+        _id: orderId
+      }).lean();
+      logger.log(orderId + "is paid at: " + new Date());
+      return paidOrder;
+
+    } catch (e) {
+      logger.error("Order:paidOrder()", e);
+      return false;
     }
   }
 
